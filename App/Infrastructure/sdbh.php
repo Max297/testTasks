@@ -17,8 +17,8 @@ class sdbh
         $this->port = $settings['host'] ?: 3306;
         $this->host = $settings['host'] ?: 'localhost';
         $this->dbname = $settings['dbname'] ?: 'test_a25';
-        $this->user = $settings['user'] ?: 'root';
-        $this->pass = $settings['pass'] ?: '';
+        $this->user = $settings['user'] ?: 'testUser';
+        $this->pass = $settings['pass'] ?: 'testPass';
         $mysql_conn = mysqli_connect($this->host, $this->user, $this->pass, $this->dbname, $this->port);
 
         $this->sql_read = $mysql_conn;

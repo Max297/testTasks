@@ -1,0 +1,14 @@
+.tariffBUtton{
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.removeButton{
+    background-color: red;
+    color: white;
+    border: none;
+    
+    border-radius: 5px;
+}
