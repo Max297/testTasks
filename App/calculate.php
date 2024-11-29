@@ -3,7 +3,28 @@ namespace App;
 require_once 'Infrastructure/sdbh.php'; use sdbh\sdbh; 
 
 class Calculate
-{
+{   
+    public function getRubToCnyExchangeRate() {
+        $url = 'https://www.cbr-xml-daily.ru/daily_json.js';
+    
+       
+        $response = file_get_contents($url);
+    
+        if ($response === FALSE) {
+            http_response_code(500);
+            return json_encode(['error' => 'Ошибка при получении данных']);
+        }
+    
+        
+        $data = json_decode($response, true);
+    
+        
+        
+        $rubToCny = $data['Valute']['CNY']['Value'];
+
+        return $rubToCny;
+        
+    }
     public function calculate1()
     {
         $dbh = new sdbh();
@@ -40,7 +61,13 @@ class Calculate
 
         $total_price += $services_price;
 
-        echo $total_price;
+        $rate= $this->getRubToCnyExchangeRate();
+
+        $resultArray=array(
+            "rub"=>$total_price,
+            "cny"=>round($total_price/$rate,2)
+        );
+        echo json_encode($resultArray);
     }
 }
 

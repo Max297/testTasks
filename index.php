@@ -60,7 +60,7 @@ $dbh = new sdbh();
                 <button type="submit" class="btn btn-primary">Рассчитать</button>
             </form>
 
-            <h5>Итоговая стоимость: <span id="total-price"></span></h5>
+            <h5>Итоговая стоимость: <span id="total-price"></span><span id="toolTip" data-toggle="tooltip" title="check"><span></h5>
         </div>
     </div>
 </div>
@@ -76,7 +76,11 @@ $dbh = new sdbh();
                 type: 'POST',
                 data: $(this).serialize(),
                 success: function(response) {
-                    $("#total-price").text(response);
+                    response=JSON.parse(response)
+                    $("#total-price").text(response['rub']+"₽");
+                    document.getElementById("toolTip").innerHTML="?"
+                    document.getElementById("toolTip").title=response['cny']+"¥"
+                    $('[data-toggle="tooltip"]').tooltip();
                 },
                 error: function() {
                     $("#total-price").text('Ошибка при расчете');
